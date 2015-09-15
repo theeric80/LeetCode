@@ -12,7 +12,30 @@ class Solution(object):
         :type root: TreeNode
         :rtype: bool
         """
-        return self.top_down(root)
+        return self.bottom_up(root)
+
+    def bottom_up(self, root):
+        if not root:
+            return True
+
+        return self.dfs_height(root) >= 0
+
+    def dfs_height(self, node):
+        if not node:
+            return 0
+
+        ld = self.dfs_height(node.left)
+        if ld < 0:
+            return ld
+
+        rd = self.dfs_height(node.right)
+        if rd < 0:
+            return rd
+
+        if abs(ld - rd) > 1:
+            return -1
+
+        return max(ld, rd) + 1
 
     def top_down(self, root):
         if not root:
