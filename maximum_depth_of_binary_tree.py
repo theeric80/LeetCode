@@ -14,16 +14,9 @@ class Solution(object):
         """
         if not root:
             return 0
-        return self.inorder(root, 0, 0)
-
-    def inorder(self, node, d, maxd):
-        if not node:
-            return max(d, maxd)
-
-        maxd = self.inorder(node.left, d+1, maxd)
-        #print '{}: d={}, max={}'.format(node.val, d, maxd)
-        maxd = self.inorder(node.right, d+1, maxd)
-        return maxd
+        l = self.maxDepth(root.left)
+        r = self.maxDepth(root.right)
+        return max(l, r) + 1
 
 def main():
     n1 = TreeNode(1)

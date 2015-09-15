@@ -14,24 +14,15 @@ class Solution(object):
         :type q: TreeNode
         :rtype: bool
         """
-        q1 = self.bfs(p)
-        q2 = self.bfs(q)
-        #print 'p: {}'.format(q1)
-        #print 'q: {}'.format(q2)
-        return q1 == q2
+        if not p and not q:
+            return True
+        elif not p or not q:
+            return False
+        elif p.val != q.val:
+            return False
 
-    def bfs(self, root):
-        result = []
-        q = collections.deque([root])
-        while len(q) > 0:
-            node = q.popleft()
-            if not node:
-                result.append(None)
-                continue
-            q.append(node.left)
-            q.append(node.right)
-            result.append(node.val)
-        return result
+        return self.isSameTree(p.left, q.left) and \
+            self.isSameTree(p.right, q.right)
 
 def create_tree_p1():
     n1 = TreeNode(1)
