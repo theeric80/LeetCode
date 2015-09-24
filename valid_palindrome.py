@@ -43,7 +43,7 @@ def main():
     inputs = [' ']
     inputs = ['.a']
     inputs = ['"`l;`` 1o1 ??;l`"']
-    #inputs = ['A man, a plan, a canal: Panama', 'race a car', 'a', ' ', '.a']
+    inputs = ['A man, a plan, a canal: Panama', 'race a car', 'a', ' ', '.a']
     for s in inputs:
         result = Solution().isPalindrome(s)
         print result
