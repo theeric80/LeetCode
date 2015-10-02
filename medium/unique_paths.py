@@ -6,11 +6,10 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        # m: row, n: column
-        result = [[1]*m for i in xrange(n)]
-        for y in xrange(1, m):
-            for x in xrange(1, n):
-                result[x][y] = result[x-1][y] + result[x][y-1]
+        result = [[1]*n for i in xrange(m)]
+        for i in xrange(1, m):
+            for j in xrange(1, n):
+                result[i][j] = result[i-1][j] + result[i][j-1]
         return result[-1][-1]
 
 def main():

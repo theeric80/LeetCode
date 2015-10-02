@@ -9,15 +9,15 @@ class Solution(object):
         path = [[0]*n for i in xrange(m)]
 
         path[0][0] = grid[0][0]
-        for x in xrange(1, m):
-            path[x][0] = path[x-1][0] + grid[x][0]
-        for y in xrange(1, n):
-            path[0][y] = path[0][y-1] + grid[0][y]
+        for i in xrange(1, m):
+            path[i][0] = path[i-1][0] + grid[i][0]
+        for j in xrange(1, n):
+            path[0][j] = path[0][j-1] + grid[0][j]
 
-        for x in xrange(1, m):
-            for y in xrange(1, n):
-                v = grid[x][y]
-                path[x][y] = min(path[x-1][y] + v, path[x][y-1] + v)
+        for i in xrange(1, m):
+            for j in xrange(1, n):
+                v = grid[i][j]
+                path[i][j] = min(path[i-1][j] + v, path[i][j-1] + v)
         return path[-1][-1]
 
 def main():
