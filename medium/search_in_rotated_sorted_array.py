@@ -9,6 +9,7 @@ class Solution(object):
         return self.search_0(nums, target, 0, len(nums)-1)
 
     def search_1(self, nums, target, lo, hi):
+        # error when: nums=[3,1], target=1
         if hi < lo:
             return -1
 
@@ -18,14 +19,14 @@ class Solution(object):
 
         if nums[lo] < nums[mid]:
             if target >= nums[lo] and target < nums[mid]:
-                return self.search_0(nums, target, lo, mid-1)
+                return self.search_1(nums, target, lo, mid-1)
             else:
-                return self.search_0(nums, target, mid+1, hi)
+                return self.search_1(nums, target, mid+1, hi)
         else:
             if target > nums[mid] and target <= nums[hi]:
-                return self.search_0(nums, target, mid+1, hi)
+                return self.search_1(nums, target, mid+1, hi)
             else:
-                return self.search_0(nums, target, lo, mid-1)
+                return self.search_1(nums, target, lo, mid-1)
 
     def search_0(self, nums, target, lo, hi):
         if hi < lo:
