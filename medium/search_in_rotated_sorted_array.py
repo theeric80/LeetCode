@@ -6,10 +6,9 @@ class Solution(object):
         :type target: int
         :rtype: int
         """
-        return self.search_0(nums, target, 0, len(nums)-1)
+        return self.search_1(nums, target, 0, len(nums)-1)
 
     def search_1(self, nums, target, lo, hi):
-        # error when: nums=[3,1], target=1
         if hi < lo:
             return -1
 
@@ -17,7 +16,7 @@ class Solution(object):
         if target == nums[mid]:
             return mid
 
-        if nums[lo] < nums[mid]:
+        if nums[lo] <= nums[mid]:
             if target >= nums[lo] and target < nums[mid]:
                 return self.search_1(nums, target, lo, mid-1)
             else:
@@ -50,7 +49,7 @@ class Solution(object):
             assert 0
 
 def main():
-    inputs = [((4,5,6,7,0,1,2), 1),]
+    inputs = [((4,5,6,7,0,1,2), 1), ((3,1), 1)]
     for nums, target in inputs:
         result = Solution().search(nums, target)
         print result
