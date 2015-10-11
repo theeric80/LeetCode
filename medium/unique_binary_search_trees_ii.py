@@ -42,14 +42,15 @@ def inorder(root):
 
 def preorder(root):
     result = []
-    def _preorder(root):
-        if not root:
-            #result.append(0)
-            return
-        result.append(root.val)
-        _preorder(root.left)
-        _preorder(root.right)
-    _preorder(root)
+    n, q = root, []
+    while n or q:
+        if n:
+            result.append(n.val)
+            if n.right:
+                q.append(n.right)
+            n = n.left
+        else:
+            n = q.pop()
     print '->'.join(str(n) for n in result)
 
 def main():
