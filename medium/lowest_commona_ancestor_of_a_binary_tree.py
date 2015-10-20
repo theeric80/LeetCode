@@ -7,6 +7,20 @@ class Solution(object):
         :type q: TreeNode
         :rtype: TreeNode
         """
+        #return self.lowestCommonAncestor_0(root, p, q)
+        return self.lowestCommonAncestor_1(root, p, q)
+
+    def lowestCommonAncestor_1(self, root, p, q):
+        if not root or root == p or root == q:
+            return root
+
+        left = self.lowestCommonAncestor_1(root.left, p, q)
+        right = self.lowestCommonAncestor_1(root.right, p, q)
+
+        if left and right: return root
+        return left if left else right
+
+    def lowestCommonAncestor_0(self, root, p, q):
         if root:
             p_path, q_path = [], []
             self.binaryTreePath(root, p, p_path)
