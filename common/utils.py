@@ -12,6 +12,12 @@ class TreeNode(object):
         self.left = None
         self.right = None
 
+# Definition for a undirected graph node
+class UndirectedGraphNode(object):
+    def __init__(self, x):
+        self.label = x
+        self.neighbors = []
+
 def build_singly_linked_list(iterable):
     iterable = iter(iterable)
     head = None
@@ -68,6 +74,31 @@ def build_oj_binary_tree(inputs):
             node.right = TreeNode(r)
             q.append(node.right)
     return root
+
+def build_oj_undirected_graph(inputs):
+    def iter_undirected_graph():
+        i = 0
+        while True:
+            try:
+                j = inputs.index('#', i)
+                yield inputs[i:j]
+                i = j + 1
+            except ValueError:
+                yield inputs[i:]
+                break
+
+    G = dict()
+    for nodes in iter_undirected_graph():
+        x = nodes[0]
+        node = G.setdefault(x, UndirectedGraphNode(x))
+        for n in nodes[1:]:
+            neighbor = G.setdefault(n, UndirectedGraphNode(n))
+            neighbor.neighbors.append(node)
+            G[n] = neighbor
+            if n != x:
+                node.neighbors.append(neighbor)
+        G[x] = node
+    return G[inputs[0]]
 
 if __name__ == '__main__':
     pass
