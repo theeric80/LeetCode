@@ -5,7 +5,19 @@ class Solution(object):
         :type root: TreeNode
         :rtype: bool
         """
-        return self.isValidBST_0(root, [], [])
+        import sys
+        #return self.isValidBST_0(root, [], [])
+        return self.isValidBST_1(root, -sys.maxint-1, sys.maxint)
+
+    def isValidBST_1(self, root, min_val, max_val):
+        if not root:
+            return True
+
+        if root.val <= min_val or root.val >= max_val:
+            return False
+
+        return self.isValidBST_1(root.left, min_val, root.val) and \
+            self.isValidBST_1(root.right, root.val, max_val)
 
     def isValidBST_0(self, root, l, r):
         if not root:
@@ -16,7 +28,7 @@ class Solution(object):
             return False
 
         return self.isValidBST_0(root.left, l+[root.val], r) and \
-                self.isValidBST_0(root.right, l, r+[root.val])
+            self.isValidBST_0(root.right, l, r+[root.val])
 
 def inorder(root):
     result = []
