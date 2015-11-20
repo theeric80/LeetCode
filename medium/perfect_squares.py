@@ -5,9 +5,32 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
+        """
         result = [0]*(n+1)
         self.numSquares_3(n, result)
         return result[n]
+        """
+        return self.numSquares_4(n)
+
+    def numSquares_4(self, n):
+        # Lagrange's four-square theorem
+        sqrt_n = int(n**0.5)
+        if sqrt_n**2 == n:
+            return 1
+
+        # 4^k(8*m + 7)
+        while n % 4 == 0:
+            n /= 4
+        if (n % 8) == 7:
+            return 4
+
+        sqrt_n = int(n**0.5)
+        for i in xrange(sqrt_n, 0, -1):
+            x = n - i**2
+            if (int(x**0.5))**2 == x:
+                return 2
+
+        return 3
 
     def numSquares_3(self, n, result):
         # DP, bottom-up
@@ -70,7 +93,6 @@ class Solution(object):
 
 def main():
     inputs = [12, 43, 83, 6175, 9975]
-    inputs = [12]
     for n in inputs:
         result = Solution().numSquares(n)
         print result
