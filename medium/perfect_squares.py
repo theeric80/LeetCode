@@ -5,9 +5,24 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        stack, result = [], []
-        self.numSquares_0(n, stack, result)
-        return min(len(l) for l in result)
+        result = [0]*(n+1)
+        self.numSquares_2(n, result)
+        return result[n]
+
+    def numSquares_2(self, n, result):
+        # DP, top-down
+        if result[n] > 0:
+            return result[n]
+        elif n == 0 and n == 1 or n == 2 or n == 3:
+            return n
+
+        sqrt_n = int(n ** 0.5)
+        q = n
+        for i in xrange(sqrt_n, 0, -1):
+            i2 = i ** 2
+            q = min(q, 1 + self.numSquares_2(n-i2, result))
+        result[n] = q
+        return q
 
     def numSquares_1(self, n, stack, result):
         if n == 0:
@@ -40,8 +55,8 @@ class Solution(object):
             stack.pop()
 
 def main():
-    inputs = [12, 43]
-    inputs = [83]
+    inputs = [12, 43, 83, 6175]
+    inputs = [6175]
     for n in inputs:
         result = Solution().numSquares(n)
         print result
