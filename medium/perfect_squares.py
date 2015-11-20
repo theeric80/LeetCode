@@ -6,8 +6,22 @@ class Solution(object):
         :rtype: int
         """
         result = [0]*(n+1)
-        self.numSquares_2(n, result)
+        self.numSquares_3(n, result)
         return result[n]
+
+    def numSquares_3(self, n, result):
+        # DP, bottom-up
+        if n == 0 and n == 1 or n == 2 or n == 3:
+            return n
+
+        result[1] = 1
+        for i in xrange(2, n+1):
+            q = n
+            for j in xrange(1, i+1):
+                j2 = j**2
+                if j2 > i: break
+                q = min(q, 1 + result[i-j2])
+            result[i] = q
 
     def numSquares_2(self, n, result):
         # DP, top-down
@@ -55,8 +69,8 @@ class Solution(object):
             stack.pop()
 
 def main():
-    inputs = [12, 43, 83, 6175]
-    inputs = [6175]
+    inputs = [12, 43, 83, 6175, 9975]
+    inputs = [12]
     for n in inputs:
         result = Solution().numSquares(n)
         print result
