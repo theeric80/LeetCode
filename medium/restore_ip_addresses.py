@@ -13,12 +13,12 @@ class Solution(object):
                     if n-k <= 0 or n-k > 3:
                         continue
                     addr = s[0:i], s[i:j], s[j:k], s[k:]
-                    if all(x < 256 for x in map(int, addr)):
-                        result.append('.'.join(addr))
+                    if any((int(x) > 255) or (x[0] == '0' and len(x) > 1) for x in addr):
+                        continue
+                    result.append('.'.join(addr))
         return result
 
 def main():
-    # ["0.10.0.10","0.100.1.0"]
     inputs = ['25525511135', '010010']
     for s in inputs:
         result = Solution().restoreIpAddresses(s)
