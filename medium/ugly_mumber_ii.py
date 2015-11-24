@@ -5,7 +5,26 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        return self.nthUglyNumber_1(n)
+        return self.nthUglyNumber_2(n)
+
+    def nthUglyNumber_2(self, n):
+        result = [1]
+        i2, i3, i5 = 0, 0, 0
+        for i in xrange(1, n):
+            u2 = 2 * result[i2]
+            u3 = 3 * result[i3]
+            u5 = 5 * result[i5]
+            umin = min((u2, u3, u5))
+
+            if umin == u2:
+                i2 += 1
+            if umin == u3:
+                i3 += 1
+            if umin == u5:
+                i5 += 1
+            result.append(umin)
+
+        return result[-1]
 
     def nthUglyNumber_1(self, n):
         S = set([1, 2, 3, 5])
