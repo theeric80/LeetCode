@@ -10,13 +10,16 @@ class Solution(object):
             return False
 
         m, n = len(board), len(board[0])
+        visited = [[0]*n for i in xrange(m)]
         for i in xrange(m):
             for j in xrange(n):
-                if self.exist_0(board, word, [], i, j):
+                visited[i][j] = 1
+                if self.exist_0(board, word, visited, i, j):
                     return True
+                visited[i][j] = 0
         return False
 
-    def exist_0(self, board, word, path, i, j):
+    def exist_0(self, board, word, visited, i, j):
         if not word:
             return True
 
@@ -28,14 +31,16 @@ class Solution(object):
         if ch != word[0]:
             return False
 
-        path.append((i, j))
+        visited[i][j] = 1
         next_steps = [(i, j-1), (i, j+1), (i-1, j), (i+1, j)]
-        for next_step in next_steps:
-            if next_step in path:
+        for x, y in next_steps:
+            if x < 0 or x >= m or y < 0 or y >= n:
                 continue
-            if self.exist_0(board, word[1:], path, *next_step):
+            if visited[x][y] == 1:
+                continue
+            if self.exist_0(board, word[1:], visited, x, y):
                 return True
-        path.pop()
+        visited[i][j] = 0
         return False
 
 
