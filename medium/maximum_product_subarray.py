@@ -6,8 +6,33 @@ class Solution(object):
         :rtype: int
         """
         if nums:
-            return self.maxProduct_1(nums)
+            return self.maxProduct_2(nums)
         return 0
+
+    def maxProduct_2(self, nums):
+        result = nums[0]
+        n = len(nums)
+        dp = nums[:] + [1]
+        p0, p1, count = 1, 1, 0
+        for i in xrange(0, n):
+            ni = nums[i]
+            p0, p1 = p0*ni, p1*ni
+            if ni == 0:
+                dp[i] = 0
+                p0, p1, count = 1, 1, 0
+            elif ni < 0:
+                count += 1
+                if count == 1:
+                    dp[i] = ni
+                    p1 = 1
+                elif count % 2 == 0:
+                    dp[i] = p0
+                else:
+                    dp[i] = p1
+            else:
+                dp[i] = max(ni, ni * dp[i-1])
+            result = max(result, dp[i])
+        return result
 
     def maxProduct_1(self, nums):
         # Time Limit Exceeded
@@ -38,9 +63,10 @@ class Solution(object):
         return result
 
 def main():
-    inputs = [[2,3,-2,4], [], [2],]
+    inputs = [[2,3,-2,4], [], [2], [0,2]]
     inputs += [[-2,3,-4],]
     inputs += [[2,-5,-2,-4,3]]
+    inputs += [[1,0,-1,2,3,-5,-2]]
     for nums in inputs:
         result = Solution().maxProduct(nums)
         print '{0}: {1}'.format(nums, result)
