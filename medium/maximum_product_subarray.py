@@ -6,8 +6,24 @@ class Solution(object):
         :rtype: int
         """
         if nums:
-            return self.maxProduct_2(nums)
+            return self.maxProduct_3(nums)
         return 0
+
+    def maxProduct_3(self, nums):
+        # http://leetcode.com/discuss/11923
+        result = max_product = min_product = nums[0]
+        n = len(nums)
+        for i in xrange(1, n):
+            ni = nums[i]
+            if ni >= 0:
+                max_product = max(max_product * ni, ni)
+                min_product = min(min_product * ni, ni)
+            else:
+                tmp = max_product
+                max_product = max(min_product * ni, ni)
+                min_product = min(tmp * ni, ni)
+            result = max(result, max_product)
+        return result
 
     def maxProduct_2(self, nums):
         result = nums[0]
