@@ -6,8 +6,14 @@ class Solution(object):
         :rtype: str
         """
         if nums:
-            return self.largestNumber_0(nums)
+            return self.largestNumber_1(nums)
         return ''
+
+    def largestNumber_1(self, nums):
+        # http://leetcode.com/discuss/21550
+        result = map(str, nums)
+        result.sort(cmp=lambda a, b: cmp(b+a, a+b))
+        return ''.join(result).lstrip('0') or '0'
 
     def largestNumber_0(self, nums):
         n = len(nums)
@@ -18,6 +24,7 @@ class Solution(object):
         return ''.join(result)
 
     def sort(self, nums, lo, hi, d, N):
+        # radix sort, MSD
         if hi <= lo or d >= N:
             return
 
@@ -44,8 +51,7 @@ class Solution(object):
         return int(s[d]) if d < n else -1
 
 def main():
-    inputs = [[3,30,34,5,9]]
-    #inputs = [[3,2,1,0,3,3,2]]
+    inputs = [[3,30,34,5,9], [0]]
     for nums in inputs:
         result = Solution().largestNumber(nums)
         print result
