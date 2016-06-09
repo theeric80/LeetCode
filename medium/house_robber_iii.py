@@ -7,13 +7,13 @@ class Solution(object):
         """
         result = (0, 0)
         if root:
-            result = self.dfs(root)
+            result = self.postorder(root)
         return max(result)
 
-    def dfs(self, node):
+    def postorder(self, node):
         if not node: return (0, 0)
-        l = self.dfs(node.left)
-        r = self.dfs(node.right)
+        l = self.postorder(node.left)
+        r = self.postorder(node.right)
         ret0 = node.val + l[1] + r[1]
         ret1 = max(l) + max(r)
         return (ret0, ret1)
