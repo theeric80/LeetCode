@@ -6,7 +6,7 @@ class Solution(object):
         :type nums2: List[int]
         :rtype: List[int]
         """
-        return self.intersect_1(nums1, nums2)
+        return self.intersect_2(nums1, nums2)
 
     def intersect_1(self, nums1, nums2):
         count = {}
@@ -18,6 +18,24 @@ class Solution(object):
             if count.has_key(n) and count[n] > 0:
                 result.append(n)
                 count[n] -= 1
+        return result
+
+    def intersect_2(self, nums1, nums2):
+        nums1.sort()
+        nums2.sort()
+
+        i, j, m, n = 0, 0, len(nums1), len(nums2)
+        result = []
+        while i < m and j < n:
+            a, b = nums1[i], nums2[j]
+            if a == b:
+                result.append(a)
+                i += 1
+                j += 1
+            elif a < b:
+                i += 1
+            elif a > b:
+                j += 1
         return result
 
 def main():
