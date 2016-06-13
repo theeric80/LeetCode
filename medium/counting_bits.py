@@ -5,7 +5,7 @@ class Solution(object):
         :type num: int
         :rtype: List[int]
         """
-        return self.countBits_1(num)
+        return self.countBits_2(num)
 
     def countBits_1(self, num):
         result = [0]
@@ -13,6 +13,13 @@ class Solution(object):
         for i in xrange(1, num+1):
             if i > x: x *= 2
             result.append(result[i-x] + 1)
+        return result
+
+    def countBits_2(self, num):
+        result = [0]
+        for i in xrange(1, num+1):
+            # i & i-1: remove the rightmost 1 bit
+            result.append(result[i & i-1] + 1)
         return result
 
 def main():
