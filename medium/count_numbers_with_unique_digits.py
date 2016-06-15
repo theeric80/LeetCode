@@ -10,7 +10,7 @@ class Solution(object):
         last = 0
         return self.countNumbersWithUniqueDigits_0(n, used, last) + 1
         """
-        return self.countNumbersWithUniqueDigits_1(n)
+        return self.countNumbersWithUniqueDigits_2(n)
 
     def countNumbersWithUniqueDigits_0(self, n, used, last):
         # backtracing
@@ -40,6 +40,15 @@ class Solution(object):
         for i in xrange(1, sz):
             m[i] = m[i-1] + 9 * reduce(lambda a, b: a*b, [1]+range(9, 10-i, -1))
         return m[-1]
+
+    def countNumbersWithUniqueDigits_2(self, n):
+        # dynamic programming
+        sz = min(n, 10)+1
+        m = [9] * sz
+        m[0] = 1
+        for i in xrange(2, sz):
+            m[i] = m[i-1] * (11-i)
+        return sum(m)
 
 def main():
     inputs = [0,1,2,3,5,10,11]
