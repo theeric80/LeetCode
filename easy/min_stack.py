@@ -5,47 +5,43 @@ class MinStack(object):
         """
         initialize your data structure here.
         """
-        self._s1 = []
-        self._s2 = []
+        self._s = []
 
     def push(self, x):
         """
         :type x: int
         :rtype: void
         """
-        self._s1.append(x)
-        if not self._s2 or x <= self.getMin():
-            self._s2.append(x)
+        m = self.getMin()
+        m = x if m is None else min(x, m)
+        self._s.append((x, m))
 
     def pop(self):
         """
         :rtype: void
         """
-        x = self._s1.pop()
-        if x == self.getMin():
-            self._s2.pop()
-        return x
+        self._s.pop()
 
     def top(self):
         """
         :rtype: int
         """
-        return self._s1[-1]
+        return self._s[-1][0]
 
     def getMin(self):
         """
         :rtype: int
         """
-        return self._s2[-1]
+        return self._s[-1][1] if self._s else None
 
 def main():
     minStack = MinStack()
-    minStack.push(-2)
     minStack.push(0)
-    minStack.push(-3)
+    minStack.push(1)
+    minStack.push(0)
 
     print minStack.getMin()
-    print minStack.pop()
+    minStack.pop()
     print minStack.top()
     print minStack.getMin()
 
