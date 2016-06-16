@@ -9,7 +9,10 @@ class Solution(object):
         """
         return self.construct(nodes, 0) == len(nodes)-1
         """
+        """
         return self.isValidSerialization_0(nodes)
+        """
+        return self.isValidSerialization_1(nodes)
 
     def construct(self, preorder, i):
         if i >= len(preorder):
@@ -35,8 +38,22 @@ class Solution(object):
                 s.append('#')
         return len(s) == 1 and s[-1] == '#'
 
+    def isValidSerialization_1(self, preorder):
+        # degree = indegree + outdegree
+        # non-leaf node: indegree(1), outdegree(-2)
+        # leaf node: indegree(1), outdegree(0)
+        degree = -1
+        for n in preorder:
+            degree += 1
+            if degree > 0:
+                return False
+            if n != '#':
+                degree -= 2
+        return degree == 0
+
 def main():
-    inputs= ['9,3,4,#,#,1,#,#,2,#,6,#,#', '9,#,#,1', '1,#']
+    inputs  = ['9,3,4,#,#,1,#,#,2,#,6,#,#', '9,#,#,1', '1,#']
+    inputs += ['#,7,6,9,#,#,#']
     for preorder in inputs:
         result = Solution().isValidSerialization(preorder)
         print '{}: {}'.format(preorder, result)
