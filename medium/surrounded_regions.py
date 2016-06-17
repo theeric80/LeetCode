@@ -30,14 +30,15 @@ class Solution(object):
     def bfs(self, board, i, j):
         m, n = len(board), len(board[0])
         q = [(i, j)]
+        board[i][j] = '1'
 
         while q:
             i, j = q.pop(0)
-            board[i][j] = '1'
             adjs = [(i, j-1), (i, j+1), (i-1, j), (i+1, j)]
             for x, y in adjs:
                 if x < 0 or x >= m or y < 0 or y >= n: continue
                 if board[x][y] == 'O':
+                    board[x][y] = '1'
                     q.append((x, y))
 
 def main():
@@ -46,6 +47,37 @@ def main():
         ['X', 'O', 'O', 'X'],
         ['X', 'X', 'O', 'X'],
         ['X', 'O', 'X', 'X']]
+
+    Solution().solve(board)
+    for r in board:
+        print r
+
+    board0 = [
+        'XOOOOOOOOOOOOOOOOOOO',
+        'OXOOOOXOOOOOOOOOOOXX',
+        'OOOOOOOOXOOOOOOOOOOX',
+        'OOXOOOOOOOOOOOOOOOXO',
+        'OOOOOXOOOOXOOOOOXOOX',
+        'XOOOXOOOOOXOXOXOXOXO',
+        'OOOOXOOXOOOOOXOOXOOO',
+        'XOOOXXXOXOOOOXXOXOOO',
+        'OOOOOXXXXOOOOXOOXOOO',
+        'XOOOOXOOOOOOXXOOXOOX',
+        'OOOOOOOOOOXOOXOOOXOX',
+        'OOOOXOXOOXXOOOOOXOOO',
+        'XXOOOOOXOOOOOOOOOOOO',
+        'OXOXOOOXOXOOOXOXOXOO',
+        'OOXOOOOOOOXOOOOOXOXO',
+        'XXOOOOOOOOXOXXOOOXOO',
+        'OOXOOOOOOOXOOXOXOXOO',
+        'OOOXOOOOOXXXOOXOOOXO',
+        'OOOOOOOOOOOOOOOOOOOO',
+        'XOOOOXOOOXXOOXOXOXOO']
+
+    board = [list(row) for row in board0]
+    for r in board:
+        print r
+
     Solution().solve(board)
     for r in board:
         print r
